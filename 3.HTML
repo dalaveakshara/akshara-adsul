@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Star Players</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #0d0d0d;
+    color: white;
+}
+
+.container {
+    padding: 60px;
+}
+
+.small-title {
+    color: red;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+h1 {
+    font-size: 60px;
+}
+
+.desc {
+    color: #aaa;
+    max-width: 500px;
+    margin-bottom: 40px;
+}
+
+.players {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 150px;
+    text-align: center;
+}
+
+.img-box {
+    background: #1a1a1a;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    transition: 0.3s;
+}
+
+.img-box:hover {
+    transform: scale(1.05);
+}
+
+.icon {
+    font-size: 40px;
+}
+
+.name {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.role {
+    color: orange;
+    font-size: 12px;
+}
+
+.sport {
+    color: #aaa;
+    font-size: 11px;
+}
+
+/* Button */
+button {
+    margin-top: 8px;
+    padding: 6px 12px;
+    border: none;
+    background: red;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: darkred;
+}
+
+/* Info Box */
+#info {
+    margin-top: 40px;
+    padding: 15px;
+    border: 1px solid #444;
+    color: #ccc;
+    width: 60%;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="small-title">MEET THE SQUAD</div>
+    <h1>STAR<br>PLAYERS</h1>
+
+    <p class="desc">
+        The faces behind the victories. Representing Apex University with pride.
+    </p>
+ 
+                <center><a href="4.html".html>go to page</a> </center>
+
+
+    <div class="players">
+
+        <div class="card">
+            <div class="img-box"><div class="icon">🏏</div></div>
+            <div class="name">ARJUN MEHTA</div>
+            <div class="role">Opening Batsman</div>
+            <div class="sport">Cricket</div>
+            <button onclick="showInfo('arjun')">View Details</button>
+        </div>
+
+        <div class="card">
+            <div class="img-box"><div class="icon">⚽</div></div>
+            <div class="name">LUCAS TORRES</div>
+            <div class="role">Striker</div>
+            <div class="sport">Football</div>
+            <button onclick="showInfo('lucas')">View Details</button>
+        </div>
+
+        <div class="card">
+            <div class="img-box"><div class="icon">🏀</div></div>
+            <div class="name">DARIUS KING</div>
+            <div class="role">Point Guard</div>
+            <div class="sport">Basketball</div>
+            <button onclick="showInfo('darius')">View Details</button>
+        </div>
+
+        <div class="card">
+            <div class="img-box"><div class="icon">🏐</div></div>
+            <div class="name">PRIYA SHARMA</div>
+            <div class="role">Setter</div>
+            <div class="sport">Volleyball</div>
+            <button onclick="showInfo('priya')">View Details</button>
+        </div>
+
+        <div class="card">
+            <div class="img-box"><div class="icon">🏏</div></div>
+            <div class="name">RAHUL NAIR</div>
+            <div class="role">Wicket Keeper</div>
+            <div class="sport">Cricket</div>
+            <button onclick="showInfo('rahul')">View Details</button>
+        </div>
+
+        <div class="card">
+            <div class="img-box"><div class="icon">⚽</div></div>
+            <div class="name">MARCO SILVA</div>
+            <div class="role">Goalkeeper</div>
+            <div class="sport">Football</div>
+            <button onclick="showInfo('marco')">View Details</button>
+        </div>
+
+        <div class="card">
+            <div class="img-box"><div class="icon">🏀</div></div>
+            <div class="name">JAMES OKAFOR</div>
+            <div class="role">Center</div>
+            <div class="sport">Basketball</div>
+            <button onclick="showInfo('james')">View Details</button>
+        </div>
+
+    </div>
+
+    <!-- Info Box -->
+    <div id="info">Click on any player to see details</div>
+
+</div>
+
+<script>
+function showInfo(player) {
+    let text = "";
+
+    if (player === "arjun") {
+        text = "Arjun Mehta: A talented opening batsman and a key cricket player.";
+    }
+    else if (player === "lucas") {
+        text = "Lucas Torres: A skilled football striker known for scoring goals.";
+    }
+    else if (player === "darius") {
+        text = "Darius King: A fast and intelligent basketball point guard.";
+    }
+    else if (player === "priya") {
+        text = "Priya Sharma: A strong volleyball setter and team player.";
+    }
+    else if (player === "rahul") {
+        text = "Rahul Nair: A skilled wicket keeper with excellent reflexes.";
+    }
+    else if (player === "marco") {
+        text = "Marco Silva: A reliable goalkeeper who saves crucial goals.";
+    }
+    else if (player === "james") {
+        text = "James Okafor: A powerful basketball center with great strength.";
+    }
+
+    document.getElementById("info").innerHTML = text;
+}
+</script>
+
+</body>
+</html>

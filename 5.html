@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sports Gallery</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: white;
+}
+
+/* Navbar */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: red;
+}
+
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+}
+
+.contact-btn {
+    background: red;
+    padding: 8px 15px;
+    border-radius: 4px;
+}
+
+/* Section */
+.section {
+    padding: 40px 50px;
+}
+
+.small-title {
+    color: red;
+    letter-spacing: 2px;
+    font-size: 12px;
+}
+
+.big-title {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.subtitle {
+    color: #bbb;
+}
+
+/* Gallery Grid */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 150px;
+    gap: 30px;
+    margin-top: 60px;
+}
+
+/* Image size control */
+.gallery img {
+    width: 100%;
+    height: 150%;
+    object-fit: cover;   /* image cut होऊन box मध्ये fit होईल */
+    border-radius: 8px;
+}
+
+</style>
+</head>
+
+<body>
+<center> <a href="6.html".html>go to page</a> </center>
+<header>
+    <div class="logo">APEX <span>UNI</span></div>
+    <nav>
+        <a href="#">HOME</a>
+        <a href="#">SPORTS</a>
+        <a href="#">TEAMS</a>
+        <a href="#">EVENTS</a>
+        <a href="#">GALLERY</a>
+        <a href="#" class="contact-btn">CONTACT</a>
+    </nav>
+</header>
+
+<section class="section">
+    <div class="small-title">HIGHLIGHTS</div>
+    <div class="big-title">SPORTS<br>GALLERY</div>
+    <p class="subtitle">Reliving the moments that defined our championship legacy.</p>
+
+    <div class="gallery">
+        <img src="tro.jpg">
+        <img src="bat.jpg">
+        <img src="voll.jpg">
+        <img src="foot.jpg">
+        <img src="basket.jpg">
+        <img src="group.jpg">
+    </div>
+
+</section>
+
+</body>
+</html>

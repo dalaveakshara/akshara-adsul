@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sports Programs</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #e8001d;
+    --red-dim: #7a0010;
+    --bg: #0a0a0a;
+    --card-bg: #111111;
+    --border: rgba(255,255,255,0.07);
+    --text: #f0ede8;
+    --muted: #888;
+  }
+ 
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Noise overlay ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    background-size: 180px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Header ── */
+  header {
+    position: relative;
+    padding: 80px 40px 60px;
+    text-align: center;
+    z-index: 1;
+  }
+
+  header::after {
+    content: 'SPORTS';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(80px, 18vw, 200px);
+    color: rgba(255,255,255,0.025);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 0.08em;
+    z-index: 0;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 16px;
+    position: relative; z-index: 1;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 8vw, 88px);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    position: relative; z-index: 1;
+  }
+
+  h1 span { color: var(--red); }
+
+  .subtitle {
+    margin-top: 16px;
+    color: var(--muted);
+    font-size: 15px;
+    font-weight: 300;
+    position: relative; z-index: 1;
+  }
+
+  /* ── Red divider ── */
+  .divider {
+    width: 48px; height: 3px;
+    background: var(--red);
+    margin: 28px auto 0;
+    position: relative; z-index: 1;
+  }
+
+  /* ── Grid ── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    padding: 60px 40px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+
+  /* ── Card ── */
+  .card {
+    background: var(--card-bg);
+    padding: 40px 36px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background 0.3s;
+    border: 1px solid var(--border);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--red);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(.25,.8,.25,1);
+  }
+
+  .card:hover { background: #161616; }
+  .card:hover::before { transform: scaleX(1); }
+
+  .card-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    color: rgba(255,255,255,0.04);
+    position: absolute;
+    top: 10px; right: 20px;
+    line-height: 1;
+    pointer-events: none;
+    transition: color 0.3s;
+  }
+  .card:hover .card-number { color: rgba(232,0,29,0.07); }
+
+  .card-emoji {
+    font-size: 36px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .card-sport {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+  }
+
+  .card-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 28px;
+    font-weight: 300;
+  }
+
+  .card-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 10px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .card-btn:hover, .card:hover .card-btn {
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
+  }
+
+  .card-btn svg { transition: transform 0.25s; }
+  .card-btn:hover svg { transform: translateX(3px); }
+
+  /* ── Modal ── */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.88);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(6px);
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal-box {
+    background: #111;
+    border: 1px solid var(--border);
+    max-width: 560px;
+    width: 100%;
+    position: relative;
+    animation: slideUp 0.3s cubic-bezier(.25,.8,.25,1) forwards;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .modal-accent {
+    height: 4px;
+    background: var(--red);
+  }
+
+  .modal-body { padding: 40px 44px 44px; }
+
+  .modal-close {
+    position: absolute;
+    top: 18px; right: 18px;
+    background: none;
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--muted);
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s;
+  }
+  .modal-close:hover { border-color: var(--red); color: var(--red); }
+
+  .modal-tag {
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+
+  .modal-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    letter-spacing: 0.04em;
+    margin-bottom: 20px;
+    line-height: 1;
+  }
+
+  .modal-divider {
+    width: 32px; height: 2px;
+    background: var(--red);
+    margin-bottom: 20px;
+  }
+
+  .modal-info {
+    font-size: 15px;
+    color: #aaa;
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  .modal-features {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .feature-pill {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #bbb;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── Footer line ── */
+  .footer-line {
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 24px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.15);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    position: relative; z-index: 1;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">Athletic Excellence</p>
+  <h1>Sports We <span>Compete</span> In</h1>
+  <p class="subtitle">Pushing limits. Building champions. One sport at a time.</p>
+  <div class="divider"></div>
+</header>
+              <center>            <a href="3.html".html>go to page</a> </center>
+
+<div class="grid">
+  <div class="card" onclick="openModal('cricket')">
+    <span class="card-number">01</span>
+    <span class="card-emoji">🏏</span>
+    <div class="card-sport">Cricket</div>
+    <p class="card-desc">Top-level cricket training with world-class facilities and expert coaching staff.</p>
+    <button class="card-btn">
+      View Details
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 6h10M7 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+
+  <div class="card" onclick="openModal('football')">
+    <span class="card-number">02</span>
+    <span class="card-emoji">⚽</span>
+    <div class="card-sport">Football</div>
+    <p class="card-desc">Professional football training with expert coaches and competitive tournaments.</p>
+    <button class="card-btn">
+      View Details
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 6h10M7 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+
+  <div class="card" onclick="openModal('basketball')">
+    <span class="card-number">03</span>
+    <span class="card-emoji">🏀</span>
+    <div class="card-sport">Basketball</div>
+    <p class="card-desc">High-intensity training sessions with indoor courts and performance analytics.</p>
+    <button class="card-btn">
+      View Details
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 6h10M7 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+
+  <div class="card" onclick="openModal('volleyball')">
+    <span class="card-number">04</span>
+    <span class="card-emoji">🏐</span>
+    <div class="card-sport">Volleyball</div>
+    <p class="card-desc">National-level teams competing with advanced practice facilities year-round.</p>
+    <button class="card-btn">
+      View Details
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 6h10M7 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+
+</div>
+
+<div class="footer-line">Excellence in Every Arena</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+  <div class="modal-box">
+    <div class="modal-accent"></div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-body">
+      <p class="modal-tag" id="modal-tag">Program</p>
+      <div class="modal-title" id="modal-title"></div>
+      <div class="modal-divider"></div>
+      <p class="modal-info" id="modal-info"></p>
+       <a href="3.html".html>go to page</a>
+
+
+      <div class="modal-features" id="modal-features"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const data = {
+    cricket: {
+      tag: "Sport 01 — Cricket",
+      title: "Cricket",
+      info: "We provide international-level coaching with professional nets, match practice sessions, and performance tracking. Our cricket program is designed to nurture talent from grassroots to competitive national play.",
+      features: ["Net Practice Facilities", "Match Simulation", "Video Analysis", "Expert Coaching"]
+    },
+    football: {
+      tag: "Sport 02 — Football",
+      title: "Football",
+      info: "Professional-grade grounds with expert coaches run structured training programs and competitive tournaments. We focus on technical skills, tactical intelligence, and physical conditioning.",
+      features: ["Professional Turf", "Tactical Training", "League Tournaments", "Strength & Conditioning"]
+    },
+
+
+    basketball: {
+      tag: "Sport 03 — Basketball",
+      title: "Basketball",
+      info: "Indoor courts equipped for high-intensity training sessions and competitive league play. Our coaching staff brings professional experience to develop every player's full potential.",
+      features: ["Indoor Courts", "Skill Drills", "Team Scrimmages", "Performance Metrics"]
+    },
+    volleyball: {
+      tag: "Sport 04 — Volleyball",
+      title: "Volleyball",
+      info: "National-level teams backed by advanced practice facilities and a structured training calendar. We compete in regional and national tournaments throughout the year.",
+      features: ["National Competitions", "Advanced Facilities", "Team Strategy", "Year-Round Training"]
+    }
+  };
+
+  function openModal(sport) {
+    const d = data[sport];
+    document.getElementById('modal-tag').textContent = d.tag;
+    document.getElementById('modal-title').textContent = d.title;
+    document.getElementById('modal-info').textContent = d.info;
+    document.getElementById('modal-features').innerHTML = d.features
+      .map(f => `<div class="feature-pill">${f}</div>`).join('');
+    document.getElementById('modal').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('modal')) closeModal();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
+</body>
+</html>
